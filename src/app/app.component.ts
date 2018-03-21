@@ -22,13 +22,16 @@ import { Token } from './token';
 import { Device } from './device';
 import { Project } from './project';
 import { User } from './user';
+import { ApiCallsService } from './api-calls.service'
+import { NgModule } from '@angular/core';
 
 const log = new Logger('App');
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  providers: [ApiCallsService]
 })
 
 export class AppComponent implements OnInit {
@@ -39,18 +42,14 @@ export class AppComponent implements OnInit {
   projects : Observable<Array<Project>>;
   headers: {headers : HttpHeaders };
 
-  serverRestApiUrl = 'http://localhost:8080'
-  projectsUrl = '/api/project';  // URL to web api
-  devicesUrl = '/api/device';  // URL to web api
-  usersUrl = '/api/user';  // URL to web api
-  authUrl = '/oauth/token';  // URL to web api
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private titleService: Title,
               private translateService: TranslateService,
               private i18nService: I18nService,
-               private http: HttpClient) { 
+              private apiCallModule: ApiCallsService
+            ) { 
                }
 
   ngOnInit() {
@@ -87,23 +86,16 @@ export class AppComponent implements OnInit {
 
       try
       {
-        this.postAuth().then(
+        this.apiCallModule.postAuth().then(
           val => 
           {
-            this.token = val as Token;
+            var token = val as Token;
 
-         console.log("this.token.access_token: " + this.token.access_token);
+         console.log("this.token.access_token: " + token.access_token);
 
-            this.headers = {
-              headers: new HttpHeaders({
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': 'Bearer ' + this.token.access_token
-              })
-            };
-
-              this.users = this.getUsers();
-              this.projects = this.getProjects();
-              this.devices = this.getDevices();
+            this.users = this.apiCallModule.getUsers(token);
+            this.projects = this.apiCallModule.getProjects(token);
+            this.devices = this.apiCallModule.getDevices(token);
           }
         );
       }catch(ex){
@@ -111,52 +103,5 @@ export class AppComponent implements OnInit {
       }
   }
 
-  getProjects (): Observable<Array<Project>> {
-    log.debug('get projs');
-    return this.http.get<Array<Project>>(this.serverRestApiUrl + this.projectsUrl, this.headers) ;
-  }
-
-  /** GET users from the server */
-  getUsers (): Observable<Array<User>> {
-    log.debug('get users');
-    return this.http.get<Array<User>>(this.serverRestApiUrl + this.projectsUrl, this.headers) ;
-  }
-
-  /** GET devices from the server */
-  getDevices (): Observable<Array<Device>> {
-    log.debug('get devices');
-    //return this.http.get<Array<Device>>(this.serverRestApiUrl + this.projectsUrl, this.headers) ;
-    return this.http.get<Array<Device>>(this.serverRestApiUrl + this.projectsUrl, this.headers);
-      
-  }
-
-
-  /** POST Auth from the server */
-  postAuth () {
-
-    const body = new HttpParams()
-    .set('grant_type', 'client_credentials')
-    .set('client_id', 'root_client')
-    .set('client_secret', 'rootclientsecret')
-    .set('scope', 'root');
-
-    const heads = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded'
-      })
-    }; 
-
-    //return this.http.post(this.serverRestApiUrl + this.authUrl, body, heads);
-    var promise = new Promise((resolve, reject) => {
-      this.http.post(this.serverRestApiUrl + this.authUrl, body, heads)
-        .toPromise()
-        .then(
-          res => { // Success
-            resolve(res);
-          }
-        )
-        ;
-    });
-    return promise;
-  }
+  
 }
