@@ -23,7 +23,6 @@ import { Device } from './device';
 import { Project } from './project';
 import { User } from './user';
 import { ApiCallsService } from './api-calls.service'
-import { NgModule } from '@angular/core';
 
 const log = new Logger('App');
 
@@ -41,16 +40,17 @@ export class AppComponent implements OnInit {
   devices : Observable<Array<Device>>;
   projects : Observable<Array<Project>>;
   headers: {headers : HttpHeaders };
-
+  showDevices = false;
+  showProjects = false;
+  showUsers = false;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private titleService: Title,
               private translateService: TranslateService,
               private i18nService: I18nService,
-              private apiCallModule: ApiCallsService
-            ) { 
-               }
+              private apiCallModule: ApiCallsService) 
+              { }
 
   ngOnInit() {
     // Setup logger
@@ -58,7 +58,6 @@ export class AppComponent implements OnInit {
       Logger.enableProductionMode();
     }
 
-    log.debug('init');
     // Setup translations
     this.i18nService.init(environment.defaultLanguage, environment.supportedLanguages);
 
@@ -86,12 +85,12 @@ export class AppComponent implements OnInit {
 
       try
       {
+        console.log("start call api");
         this.apiCallModule.postAuth().then(
           val => 
           {
+            console.log("postAuth call api");
             var token = val as Token;
-
-         console.log("this.token.access_token: " + token.access_token);
 
             this.users = this.apiCallModule.getUsers(token);
             this.projects = this.apiCallModule.getProjects(token);
@@ -103,5 +102,27 @@ export class AppComponent implements OnInit {
       }
   }
 
-  
+  //#region show hide 
+  toggleDevices() 
+  { 
+    this.showDevices = !this.showDevices; 
+    this.showProjects = false;
+    this.showUsers  = false;
+    console.log("toggleDevices"); 
+  }
+  toggleProjects() 
+  { 
+    this.showProjects = !this.showProjects;
+    this.showDevices = false;
+    this.showUsers  = false;
+      console.log("toggleProjects");
+  }
+  toggleUsers() 
+  {
+     this.showUsers = !this.showUsers;
+     this.showDevices = false;
+     this.showProjects  = false;
+     console.log("toggleUsers");
+  }
+  //#endregion
 }

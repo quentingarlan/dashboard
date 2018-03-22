@@ -1,36 +1,42 @@
 <router-outlet></router-outlet>
 
-<H2>projects</H2>
-<li *ngFor="let project of projects | async">
-        <ul>{{project.updatedAt}}</ul>
-        <ul>{{project.createdAt}}</ul>
-        <ul>{{project.segment}}</ul>
-        <ul>{{project.country}}</ul>
-        <ul>{{project.countryCatalog}}</ul>
-        <ul>{{project.status}}</ul>
-        <ul>{{project.projectName}}</ul>
-        <ul>{{project.finalClientCity}}</ul>
-        <ul>{{project.surface}}</ul>
-        <ul>{{project.numberFloors}}</ul>
-        <ul>{{project.user}}</ul>
-        <ul>{{project.devices}}</ul>
+<div id="projects" (click)="toggleProjects()">projects</div>
+<div *ngIf="showProjects">
+        <li  *ngFor="let project of projects | async">
+                <ul>{{project.updatedAt}}</ul>
+                <ul>{{project.createdAt}}</ul>
+                <ul>{{project.segment}}</ul>
+                <ul>{{project.country}}</ul>
+                <ul>{{project.countryCatalog}}</ul>
+                <ul>{{project.status}}</ul>
+                <ul>{{project.projectName}}</ul>
+                <ul>{{project.finalClientCity}}</ul>
+                <ul>{{project.surface}}</ul>
+                <ul>{{project.numberFloors}}</ul>
+                <ul>{{project.user}}</ul>
+                <ul>{{project.devices}}</ul>
 
- </li>
+        </li>
+</div>
 
-<H2>users</H2>
-<li *ngFor="let user of users | async">
-        <ul>{{user.updatedAt}}</ul>
-        <ul>{{user.createdAt}}</ul>
-        <ul>{{user.accountId}}</ul>
-        <ul>{{user.country}}</ul>
-        <ul>{{user.software}}</ul>
-        <ul>{{user.version}}</ul>
-        <ul>{{user.id}}</ul>
- </li>
+<div id="users" (click)="toggleUsers()">users</div>
+<div *ngIf="showUsers">
+        <li *ngFor="let user of users | async">
+                <ul>{{user.updatedAt}}</ul>
+                <ul>{{user.createdAt}}</ul>
+                <ul>{{user.accountId}}</ul>
+                <ul>{{user.country}}</ul>
+                <ul>{{user.software}}</ul>
+                <ul>{{user.version}}</ul>
+                <ul>{{user.id}}</ul>
+        </li>
+</div>
 
-<H2>devices</H2>
+<div id="devices" (click)="toggleDevices()">devices</div>
+<div *ngIf="showDevices">
         <li *ngFor="let device of devices | async">
             <ul>{{device.reference}}</ul>
             <ul>{{device.manufacturer}}</ul>
             <ul>{{device.status}}</ul>
         </li>
+</div>
