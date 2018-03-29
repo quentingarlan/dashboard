@@ -64,17 +64,6 @@ export class ApiCallsService {
               }
         );
 }
-
-  getProjects (accessToken : Token): Observable<Array<Project>> {
-    console.log('get projs');
-    var headers = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Bearer ' + accessToken.access_token
-      })
-    };
-    return this.http.get<Array<Project>>(this.serverRestApiUrl + this.projectsUrl, headers) ;
-  }
   
   /** GET users from the server */
   getUsers (accessToken : Token): Observable<Array<User>> {
@@ -98,7 +87,33 @@ export class ApiCallsService {
     };
     return this.http.get<Array<Device>>(this.serverRestApiUrl + this.projectsUrl, headers);      
   }
+
+  getProjects (accessToken : Token)
+  {
+    console.log('get projs');
   
+    var headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Bearer ' + accessToken.access_token
+      })
+    };
+
+    var promise = new Promise((resolve, reject) => {
+      this.http.get<Array<Project>>(this.serverRestApiUrl + this.projectsUrl, headers)
+        .toPromise()
+        .then(
+          res=>{
+            resolve(res);
+          }
+        ).catch(function(e){
+          console.log("error while getting projects");
+          throw(e);
+        });
+      });
+      return promise;
+   }
+
   /** POST Auth from the server */
   postAuth () {
     const body = new HttpParams()

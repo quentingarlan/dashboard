@@ -1,3 +1,6 @@
+<script src="node_modules/chart.js/Chart.min.js"></script>
+<script src="node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
+
 <router-outlet></router-outlet>
 
 <div id="projects" (click)="toggleProjects()">projects</div>
@@ -19,7 +22,12 @@
         </li>
 </div>
 
-<div id="users" (click)="toggleUsers()">users</div>
+<div>
+        <canvas id="canvas">{{ chart }} </canvas>
+</div>
+
+
+<!-- <div id="users" (click)="toggleUsers()">users</div>
 <div *ngIf="showUsers">
         <li *ngFor="let user of users | async">
                 <ul>{{user.updatedAt}}</ul>
@@ -39,4 +47,4 @@
             <ul>{{device.manufacturer}}</ul>
             <ul>{{device.status}}</ul>
         </li>
-</div>
+</div> -->
