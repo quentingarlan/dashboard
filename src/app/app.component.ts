@@ -18,44 +18,24 @@ import { catchError } from 'rxjs/operators';
 import { forEach } from '@angular/router/src/utils/collection';
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
-import { Token } from './token';
-import { Device } from './device';
-import { Project } from './project';
-import { User } from './user';
-import { ApiCallsService } from './api-calls.service'
-import { ChartingService } from './charting.service'
 
 const log = new Logger('App');
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  providers: [ApiCallsService,
-              ChartingService]
+  styleUrls: ['./app.component.scss']
 })
 
 export class AppComponent implements OnInit {
 
-  token : Token;
-  users : Observable<Array<User>>;
-  devices : Observable<Array<Device>>;
-  topDevices : Observable<Array<Device>>;
-  projects : Observable<Array<Project>>;
   headers: {headers : HttpHeaders };
-  showDevices = false;
-  showProjects = false;
-  showUsers = false;
-  projectsChart : Chart;
-  topDeviceChart : Chart;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private titleService: Title,
               private translateService: TranslateService,
-              private i18nService: I18nService,
-              private apiCallModule: ApiCallsService,
-              private chartingModule: ChartingService) 
+              private i18nService: I18nService,) 
               { }
 
   ngOnInit() {
@@ -88,31 +68,6 @@ export class AppComponent implements OnInit {
           this.titleService.setTitle(this.translateService.instant(title));
         }
       });
-
-      try
-      {
-        console.log("start call api");
-        this.apiCallModule.postAuth().then(
-          val => 
-          {
-              console.log("postAuth call api");
-              var token = val as Token;
-
-              this.users = this.apiCallModule.getUsers(token);
-
-              this.devices = this.apiCallModule.getDevicesAsync(token);
-              // this.topDevices = this.apiCallModule.getTopDevicesAsync(token);
-
-              this.apiCallModule.getProjects(token).then(proj =>
-              {
-                var projects = proj as Array<Project>;
-                this.projectsChart = this.chartingModule.CreateNbProjectsChart(projects);
-              })
-          }
-        );
-      }catch(ex){
-        console.log("postAuth exception" + ex);
-      }
   }
 
 }

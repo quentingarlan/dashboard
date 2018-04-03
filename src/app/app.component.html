@@ -8,14 +8,13 @@
         <ngb-tab>
           <ng-template ngbTabTitle>Overview</ng-template>
           <ng-template ngbTabContent>
+                <app-overview></app-overview>
           </ng-template>
         </ngb-tab>
 
         <ngb-tab title="Dashboard">
         <ng-template ngbTabContent>
-                <div>
-                        <canvas id="projectsCanvas">{{ projectsChart }} </canvas>
-                </div>
+             <app-dashboard></app-dashboard>
         </ng-template>
         </ngb-tab>
 
