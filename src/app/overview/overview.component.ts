@@ -24,11 +24,9 @@ export class OverviewComponent implements OnInit {
 
     try
     {
-      console.log("start call api");
       this.apiCallModule.postAuth().then(
         val => 
         {
-            console.log("postAuth call api");
             var token = val as Token;
 
             this.apiCallModule.getUsers(token).then(users =>

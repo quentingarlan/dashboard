@@ -1,10 +1,10 @@
 {
-  "name": "ngX-Rocket",
-  "short_name": "ngX-Rocket",
+  "name": "Tracking Dashboard",
+  "short_name": "Tracking",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [{
-    "src": "assets/ngx-rocket-logo.png",
+    "src": "assets/multi-touch-iPhone.png",
     "sizes": "512x512",
     "type": "image/png"
   }],
