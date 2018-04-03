@@ -17,9 +17,9 @@ export class OverviewComponent implements OnInit {
   projectsNb : number;
   devicesConfiguredNb : number;
   devicesUnconfiguredNb : number;
-  SwedenProjectsNb:number;
-  DenmarkProjectsNb:number;
-  FranceProjectsNb:number;
+  SwedenProjectsNb:string;
+  DenmarkProjectsNb:string;
+  FranceProjectsNb:string;
 
   constructor( private apiCallModule: ApiCallsService) { }
 
@@ -34,24 +34,34 @@ export class OverviewComponent implements OnInit {
         {
             var token = val as Token;
 
-            this.apiCallModule.getUsers(token).then(users =>
-            {
-               var usersArray = users as Array<Project>;
-               this.usersNb = usersArray.length;
+            // this.apiCallModule.getUsers(token).then(users =>
+            // {
+            //    var usersArray = users as Array<Project>;
+            //    this.usersNb = usersArray.length;
+            // })
+
+            this.apiCallModule.getProjectsNbByCountry(token, "Sweden").then(projNb =>
+            {  
+              var projectNb = projNb as string;
+              this.SwedenProjectsNb = projectNb;
             })
+
+            this.apiCallModule.getProjectsNbByCountry(token, "Denmark").then(projNb =>
+              {  
+                var projectNb = projNb as string;
+                this.DenmarkProjectsNb = projectNb;
+              })
+
+              this.apiCallModule.getProjectsNbByCountry(token, "France").then(projNb =>
+                {  
+                  var projectNb = projNb as string;
+                  this.FranceProjectsNb = projectNb;
+                })
 
             this.apiCallModule.getProjects(token).then(proj =>
             {
               var projectsArray = proj as Array<Project>;
               this.projectsNb = projectsArray.length;
-
-              var SwedenArray = projectsArray.filter(p => p.country == 'Sweden');
-              var DenmarkArray = projectsArray.filter(p => p.country == 'Denmark');
-              var FranceArray = projectsArray.filter(p => p.country == 'France');
-
-              this.SwedenProjectsNb = SwedenArray.length;
-              this.DenmarkProjectsNb = DenmarkArray.length;
-              this.FranceProjectsNb = FranceArray.length;
             })
 
             this.apiCallModule.getDevices(token).then(dev =>

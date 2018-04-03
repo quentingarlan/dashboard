@@ -33,7 +33,9 @@ export class ApiCallsService {
   devicesTopUrl = '/api/devicetop';  // URL to web api
   usersUrl = '/api/user';  // URL to web api
   authUrl = '/oauth/token';  // URL to web api
-  projByCountryUrl = '/api/project/country/';  // URL to web api
+  projNbByCountryUrl = '/api/project/number';  // URL to web api
+  projExistsUrl = '/api/project/exist';
+  projByCountryUrl = '/api/project/country';  // URL to web api
   private handleError: HandleError;
   
   //#region 
@@ -64,35 +66,85 @@ export class ApiCallsService {
       return promise;
    }
 
-  getProjectsByCountry (accessToken : Token,
-              countryId : string): Observable<Array<Project>> {
-    return this.http.get<Array<Project>>(this.serverRestApiUrl + this.projByCountryUrl, 
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': 'Bearer ' + accessToken.access_token
-        },
-         params: {
-          ':country_id': countryId
-        }
-        }
-    );
-  }
 
-  getProjectsById (accessToken : Token,
-    projectId : string): Observable<Array<Project>> {
-        return this.http.get<Array<Project>>(this.serverRestApiUrl + this.projectsUrl, 
-        {
-              headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Authorization': 'Bearer ' + accessToken.access_token
-              },
-                params: {
-                    ':country_id': projectId
-                }
+  getProjectsNbByCountry (accessToken : Token,
+                          countryId:string)
+  {
+    console.log('get projs');
+  
+    var headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Bearer ' + accessToken.access_token
+      })
+    };
+
+    var promise = new Promise((resolve, reject) => {
+      this.http.get<string>(this.serverRestApiUrl + this.projNbByCountryUrl+ "/" + countryId, headers)
+        .toPromise()
+        .then(
+          res=>{
+            resolve(res);
+          }
+        ).catch(function(e){
+          console.log("error while getting projects");
+          throw(e);
+        });
+      });
+      return promise;
+   }
+
+    getProjectsById (accessToken : Token,
+    projectId : string) {
+      console.log('get projs');
+      
+        var headers = {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Bearer ' + accessToken.access_token
+          })
+        };
+    
+        var promise = new Promise((resolve, reject) => {
+          this.http.get<Project>(this.serverRestApiUrl + this.projectsUrl + "/" + projectId, headers)
+            .toPromise()
+            .then(
+              res=>{
+                resolve(res);
               }
-        );
-}
+            ).catch(function(e){
+              console.log("error while getting projects");
+              throw(e);
+            });
+          });
+          return promise;
+      }
+
+      getProjectExists (accessToken : Token,
+        projectId : string) {
+          console.log('get projs');
+          
+            var headers = {
+              headers: new HttpHeaders({
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Bearer ' + accessToken.access_token
+              })
+            };
+        
+            var promise = new Promise((resolve, reject) => {
+              this.http.get<Project>(this.serverRestApiUrl + this.projExistsUrl + "/" + projectId, headers)
+                .toPromise()
+                .then(
+                  res=>{
+                    resolve(res);
+                  }
+                ).catch(function(e){
+                  console.log("error while getting projects");
+                  throw(e);
+                });
+              });
+              return promise;
+          }
 
 //#endregion
   
@@ -110,7 +162,7 @@ export class ApiCallsService {
       };
   
       var promise = new Promise((resolve, reject) => {
-        this.http.get<Array<Project>>(this.serverRestApiUrl + this.usersUrl, headers)
+        this.http.get<Array<User>>(this.serverRestApiUrl + this.usersUrl, headers)
           .toPromise()
           .then(
             res=>{
@@ -163,7 +215,7 @@ export class ApiCallsService {
     };
 
     var promise = new Promise((resolve, reject) => {
-      this.http.get<Array<Project>>(this.serverRestApiUrl + this.devicesUrl, headers)
+      this.http.get<Array<Device>>(this.serverRestApiUrl + this.devicesUrl, headers)
         .toPromise()
         .then(
           res=>{
