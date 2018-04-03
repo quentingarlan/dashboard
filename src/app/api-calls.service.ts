@@ -36,6 +36,34 @@ export class ApiCallsService {
   projByCountryUrl = '/api/project/country/';  // URL to web api
   private handleError: HandleError;
   
+  //#region 
+
+  getProjects (accessToken : Token)
+  {
+    console.log('get projs');
+  
+    var headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Bearer ' + accessToken.access_token
+      })
+    };
+
+    var promise = new Promise((resolve, reject) => {
+      this.http.get<Array<Project>>(this.serverRestApiUrl + this.projectsUrl, headers)
+        .toPromise()
+        .then(
+          res=>{
+            resolve(res);
+          }
+        ).catch(function(e){
+          console.log("error while getting projects");
+          throw(e);
+        });
+      });
+      return promise;
+   }
+
   getProjectsByCountry (accessToken : Token,
               countryId : string): Observable<Array<Project>> {
     return this.http.get<Array<Project>>(this.serverRestApiUrl + this.projByCountryUrl, 
@@ -65,18 +93,38 @@ export class ApiCallsService {
               }
         );
 }
+
+//#endregion
   
+//#region 
+
   /** GET users from the server */
-  getUsers (accessToken : Token): Observable<Array<User>> {
-    console.log('get users');
-    var headers = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Bearer ' + accessToken.access_token
-      })
-    };
-    return this.http.get<Array<User>>(this.serverRestApiUrl + this.usersUrl, headers) ;
-  }
+    getUsers (accessToken : Token) {
+      console.log('get Devices');
+  
+      var headers = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer ' + accessToken.access_token
+        })
+      };
+  
+      var promise = new Promise((resolve, reject) => {
+        this.http.get<Array<Project>>(this.serverRestApiUrl + this.usersUrl, headers)
+          .toPromise()
+          .then(
+            res=>{
+              resolve(res);
+            }
+          ).catch(function(e){
+            console.log("error while getting users");
+            throw(e);
+          });
+        });
+        return promise;    
+    }
+
+  //#endregion
 
     /** GET devices from the server */
     getDevicesAsync (accessToken : Token): Observable<Array<Device>> {
@@ -128,32 +176,6 @@ export class ApiCallsService {
       });
       return promise;    
   }
-
-  getProjects (accessToken : Token)
-  {
-    console.log('get projs');
-  
-    var headers = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Bearer ' + accessToken.access_token
-      })
-    };
-
-    var promise = new Promise((resolve, reject) => {
-      this.http.get<Array<Project>>(this.serverRestApiUrl + this.projectsUrl, headers)
-        .toPromise()
-        .then(
-          res=>{
-            resolve(res);
-          }
-        ).catch(function(e){
-          console.log("error while getting projects");
-          throw(e);
-        });
-      });
-      return promise;
-   }
 
   /** POST Auth from the server */
   postAuth () {
