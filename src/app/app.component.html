@@ -3,48 +3,37 @@
 
 <router-outlet></router-outlet>
 
-<div id="projects" (click)="toggleProjects()">projects</div>
-<div *ngIf="showProjects">
-        <li  *ngFor="let project of projects | async">
-                <ul>{{project.updatedAt}}</ul>
-                <ul>{{project.createdAt}}</ul>
-                <ul>{{project.segment}}</ul>
-                <ul>{{project.country}}</ul>
-                <ul>{{project.countryCatalog}}</ul>
-                <ul>{{project.status}}</ul>
-                <ul>{{project.projectName}}</ul>
-                <ul>{{project.finalClientCity}}</ul>
-                <ul>{{project.surface}}</ul>
-                <ul>{{project.numberFloors}}</ul>
-                <ul>{{project.user}}</ul>
-                <ul>{{project.devices}}</ul>
+<ngb-tabset>
+     
+        <ngb-tab>
+          <ng-template ngbTabTitle>Overview</ng-template>
+          <ng-template ngbTabContent>
+          </ng-template>
+        </ngb-tab>
 
-        </li>
-</div>
+        <ngb-tab title="Dashboard">
+        <ng-template ngbTabContent>
+                <div>
+                        <canvas id="projectsCanvas">{{ projectsChart }} </canvas>
+                </div>
+        </ng-template>
+        </ngb-tab>
 
-<div>
-        <canvas id="canvas">{{ chart }} </canvas>
-</div>
+        <ngb-tab title="Sweden" [disabled]="true">
+          <ng-template ngbTabContent>
+          </ng-template>
+        </ngb-tab>
 
+         <ngb-tab title="Denmark" [disabled]="true">
+          <ng-template ngbTabContent>
+          </ng-template>
+        </ngb-tab>
 
-<!-- <div id="users" (click)="toggleUsers()">users</div>
-<div *ngIf="showUsers">
-        <li *ngFor="let user of users | async">
-                <ul>{{user.updatedAt}}</ul>
-                <ul>{{user.createdAt}}</ul>
-                <ul>{{user.accountId}}</ul>
-                <ul>{{user.country}}</ul>
-                <ul>{{user.software}}</ul>
-                <ul>{{user.version}}</ul>
-                <ul>{{user.id}}</ul>
-        </li>
-</div>
+        <ngb-tab title="France" [disabled]="true">
+                <ng-template ngbTabContent>
+                </ng-template>
+        </ngb-tab>
 
-<div id="devices" (click)="toggleDevices()">devices</div>
-<div *ngIf="showDevices">
-        <li *ngFor="let device of devices | async">
-            <ul>{{device.reference}}</ul>
-            <ul>{{device.manufacturer}}</ul>
-            <ul>{{device.status}}</ul>
-        </li>
-</div> -->
+</ngb-tabset>
+      
+

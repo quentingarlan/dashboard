@@ -32,7 +32,7 @@ const log = new Logger('App');
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   providers: [ApiCallsService,
-    ChartingService]
+              ChartingService]
 })
 
 export class AppComponent implements OnInit {
@@ -40,12 +40,14 @@ export class AppComponent implements OnInit {
   token : Token;
   users : Observable<Array<User>>;
   devices : Observable<Array<Device>>;
+  topDevices : Observable<Array<Device>>;
   projects : Observable<Array<Project>>;
   headers: {headers : HttpHeaders };
   showDevices = false;
   showProjects = false;
   showUsers = false;
-  chart : Chart;
+  projectsChart : Chart;
+  topDeviceChart : Chart;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
@@ -93,47 +95,24 @@ export class AppComponent implements OnInit {
         this.apiCallModule.postAuth().then(
           val => 
           {
-            console.log("postAuth call api");
-            var token = val as Token;
+              console.log("postAuth call api");
+              var token = val as Token;
 
-            this.users = this.apiCallModule.getUsers(token);
-            this.devices = this.apiCallModule.getDevices(token);
+              this.users = this.apiCallModule.getUsers(token);
 
+              this.devices = this.apiCallModule.getDevicesAsync(token);
+              // this.topDevices = this.apiCallModule.getTopDevicesAsync(token);
 
-            this.apiCallModule.getProjects(token).then(proj =>
+              this.apiCallModule.getProjects(token).then(proj =>
               {
                 var projects = proj as Array<Project>;
-                this.chartingModule.CreateNbProjectsCharts(projects);
-              }
-              //end get project promise
-            )}
+                this.projectsChart = this.chartingModule.CreateNbProjectsChart(projects);
+              })
+          }
         );
       }catch(ex){
         console.log("postAuth exception" + ex);
       }
   }
 
-  //#region show hide 
-  toggleDevices() 
-  { 
-    this.showDevices = !this.showDevices; 
-    this.showProjects = false;
-    this.showUsers  = false;
-    console.log("toggleDevices"); 
-  }
-  toggleProjects() 
-  { 
-    this.showProjects = !this.showProjects;
-    this.showDevices = false;
-    this.showUsers  = false;
-      console.log("toggleProjects");
-  }
-  toggleUsers() 
-  {
-     this.showUsers = !this.showUsers;
-     this.showDevices = false;
-     this.showProjects  = false;
-     console.log("toggleUsers");
-  }
-  //#endregion
 }

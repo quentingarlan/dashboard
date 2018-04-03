@@ -30,6 +30,7 @@ export class ApiCallsService {
   serverRestApiUrl = 'http://localhost:8080'
   projectsUrl = '/api/project';  // URL to web api
   devicesUrl = '/api/device';  // URL to web api
+  devicesTopUrl = '/api/devicetop';  // URL to web api
   usersUrl = '/api/user';  // URL to web api
   authUrl = '/oauth/token';  // URL to web api
   projByCountryUrl = '/api/project/country/';  // URL to web api
@@ -74,18 +75,58 @@ export class ApiCallsService {
         'Authorization': 'Bearer ' + accessToken.access_token
       })
     };
-    return this.http.get<Array<User>>(this.serverRestApiUrl + this.projectsUrl, headers) ;
+    return this.http.get<Array<User>>(this.serverRestApiUrl + this.usersUrl, headers) ;
   }
+
+    /** GET devices from the server */
+    getDevicesAsync (accessToken : Token): Observable<Array<Device>> {
+      console.log('get devices');
+      var headers = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer ' + accessToken.access_token
+        })
+      };
+      return this.http.get<Array<Device>>(this.serverRestApiUrl + this.devicesUrl, headers) ;
+    }
+
+    /** GET devices from the server */
+    getTopDevicesAsync (accessToken : Token): Observable<Array<Device>> {
+      console.log('get devices top');
+      var headers = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer ' + accessToken.access_token
+        })
+      };
+      return this.http.get<Array<Device>>(this.serverRestApiUrl + this.devicesTopUrl, headers) ;
+    }
+
   
   /** GET devices from the server */
-  getDevices (accessToken : Token): Observable<Array<Device>> {
+  getDevices (accessToken : Token) {
+    console.log('get Devices');
+
     var headers = {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
         'Authorization': 'Bearer ' + accessToken.access_token
       })
     };
-    return this.http.get<Array<Device>>(this.serverRestApiUrl + this.projectsUrl, headers);      
+
+    var promise = new Promise((resolve, reject) => {
+      this.http.get<Array<Project>>(this.serverRestApiUrl + this.devicesUrl, headers)
+        .toPromise()
+        .then(
+          res=>{
+            resolve(res);
+          }
+        ).catch(function(e){
+          console.log("error while getting devices");
+          throw(e);
+        });
+      });
+      return promise;    
   }
 
   getProjects (accessToken : Token)
