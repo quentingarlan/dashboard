@@ -17,10 +17,15 @@ export class OverviewComponent implements OnInit {
   projectsNb : number;
   devicesConfiguredNb : number;
   devicesUnconfiguredNb : number;
+  SwedenProjectsNb:number;
+  DenmarkProjectsNb:number;
+  FranceProjectsNb:number;
 
   constructor( private apiCallModule: ApiCallsService) { }
 
   ngOnInit() {
+
+    // this.CountryList =["Sweden", "Denmark", "France", "Belgium", "Russia", "Italy", "Germany", "Norway", "Chile", "Turkey", "Poland", "Finland", "Austria", "Spain"];
 
     try
     {
@@ -39,6 +44,14 @@ export class OverviewComponent implements OnInit {
             {
               var projectsArray = proj as Array<Project>;
               this.projectsNb = projectsArray.length;
+
+              var SwedenArray = projectsArray.filter(p => p.country == 'Sweden');
+              var DenmarkArray = projectsArray.filter(p => p.country == 'Denmark');
+              var FranceArray = projectsArray.filter(p => p.country == 'France');
+
+              this.SwedenProjectsNb = SwedenArray.length;
+              this.DenmarkProjectsNb = DenmarkArray.length;
+              this.FranceProjectsNb = FranceArray.length;
             })
 
             this.apiCallModule.getDevices(token).then(dev =>

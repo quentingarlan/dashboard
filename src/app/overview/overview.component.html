@@ -1,21 +1,35 @@
 <div>
   <H3>overview</H3>
-  <div>Total users</div>
-  <div>{{ usersNb }}</div>
 
-  <div>Total projects</div>
-  <div>{{ projectsNb }}</div>
+  <Table>
+    <tr>
+      <Td>Users</Td>
+      <td>Projects</td>
+      <td>Configured devices</td>
+      <td>Not configured devices</td>
+    </tr>
+    <tr>
+        <Td>{{ usersNb }}</Td>
+        <td>{{ projectsNb }}</td>
+        <td>{{ devicesConfiguredNb }}</td>
+        <td>{{ devicesUnconfiguredNb }}</td>
+      </tr>
+  </Table>
 
-  <div>Total configured devices</div>
-  <div>{{ devicesConfiguredNb }}</div>
+<Table>
 
-  <div>Total not configured devices</div>
-  <div>{{ devicesUnconfiguredNb }}</div>
+  <Tr><td>country</td><td>Projects</td><td>Configured devices</td><td>Not configured devices</td></Tr>
 
-  <ul class="Projects">
-      <li *ngFor="let project of projects">
-      
+  <tr><td>Sweden</td><td>{{ SwedenProjectsNb }}</td></tr>
+  <tr><td>Denmark</td><td>{{ DenmarkProjectsNb }}</td></tr>
+  <tr><td>France</td><td>{{ FranceProjectsNb }}</td></tr>
+
+</Table>
+
+  <!-- <ul>
+      <li *ngFor="let number of CountryList">
+         {{number}}
       </li>
-    </ul>
+</ul> -->
 
 </div>
