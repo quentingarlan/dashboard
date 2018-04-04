@@ -18,19 +18,19 @@
 
 <Table>
 
-  <Tr><td>country</td><td>Projects</td><td>Configured devices</td><td>Not configured devices</td></Tr>
+  <!-- <Tr><td>country</td><td>Projects</td><td>Configured devices</td><td>Not configured devices</td></Tr>
 
-  <tr><td>Project country</td><td>{{ projCountry }}</td></tr>
   <tr><td>Sweden</td><td>{{ swedenProjectsNb }}</td></tr>
   <tr><td>Denmark</td><td>{{ denmarkProjectsNb }}</td></tr>
-  <tr><td>France</td><td>{{ franceProjectsNb }}</td></tr>
+  <tr><td>France</td><td>{{ franceProjectsNb }}</td></tr> -->
 
 </Table>
 
-  <!-- <ul>
-      <li *ngFor="let number of CountryList">
-         {{number}}
+   <ul>
+      <li *ngFor="let proj of projectsArray">
+         {{proj.country}}
+         {{proj.projects.length}}
       </li>
-</ul> -->
+  </ul>   
 
 </div>

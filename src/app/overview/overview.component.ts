@@ -17,16 +17,16 @@ export class OverviewComponent implements OnInit {
   projectsNb : number;
   devicesConfiguredNb : number;
   devicesUnconfiguredNb : number;
-  swedenProjectsNb:number;
-  denmarkProjectsNb:number;
-  franceProjectsNb:number;
-  projCountry:string;
+  // swedenProjectsNb:number;
+  // denmarkProjectsNb:number;
+  // franceProjectsNb:number;
+  projectsArray : Array<{country:string, projects:Array<Project>}>;
 
   constructor( private apiCallModule: ApiCallsService) { }
 
   ngOnInit() {
 
-    // this.CountryList =["Sweden", "Denmark", "France", "Belgium", "Russia", "Italy", "Germany", "Norway", "Chile", "Turkey", "Poland", "Finland", "Austria", "Spain"];
+    var countryList =["Sweden", "Denmark", "France", "Belgium", "Russia", "Italy", "Germany", "Norway", "Chile", "Turkey", "Poland", "Finland", "Austria", "Spain"];
 
     try
     {
@@ -41,48 +41,48 @@ export class OverviewComponent implements OnInit {
                this.usersNb = usersArray.length;
             })
 
-          this.apiCallModule.getProjectsById(token,"58b3fb74-8512-4677-925a-cf83f3137dcb").then(projNb =>
-            {  
-              var projectNb = projNb as Project;
-              this.projCountry = projectNb.country;
-            })
+            this.projectsArray = new Array<{country:string, projects:Array<Project>}>();
 
-            this.apiCallModule.getProjectsNbByCountry(token, "Sweden").then(projNb =>
-            {  
-              var projectNb = projNb as Array<Project>;
-              this.swedenProjectsNb = projectNb.length;
-            })
+            for (var i in countryList){
 
-            this.apiCallModule.getProjectsNbByCountry(token, "Denmark").then(projNb =>
-              {  
-                var projectNb = projNb as Array<Project>;
-                this.denmarkProjectsNb = projectNb.length;
-              })
-
-              this.apiCallModule.getProjectsNbByCountry(token, "France").then(projNb =>
+              this.apiCallModule.getProjectsNbByCountry(token, countryList[i]).then(projs  =>
                 {  
-                  var projectNb = projNb as Array<Project>;
-                  this.franceProjectsNb = projectNb.length;
+                  var projsArray = projs as Array<Project>;
+
+                  this.projectsArray.push({country:countryList[i], projects:projsArray})
                 })
+            }           
 
-            this.apiCallModule.getProjects(token).then(proj =>
-            {
-              var projectsArray = proj as Array<Project>;
-              this.projectsNb = projectsArray.length;
-            })
+            // this.apiCallModule.getProjectsNbByCountry(token, "Denmark").then(projects =>
+            // {  
+            //   var projectsArray = projects as Array<Project>;
+            //   this.denmarkProjectsNb = projectsArray.length;
+            // })
 
-            this.apiCallModule.getDevices(token).then(dev =>
-            {
-              var devicesArray = dev as Array<Project>;
+            // this.apiCallModule.getProjectsNbByCountry(token, "France").then(projects =>
+            // {  
+            //   var projectsArray = projects as Array<Project>;
+            //   this.franceProjectsNb = projectsArray.length;
+            // })
 
-              var devicesConfiguredArray = devicesArray.filter(d => d.status == "Configured");
+            // this.apiCallModule.getProjects(token).then(proj =>
+            // {
+            //   var projectsArray = proj as Array<Project>;
+            //   this.projectsNb = projectsArray.length;
+            // })
 
-              this.devicesConfiguredNb = devicesConfiguredArray.length;
+            // this.apiCallModule.getDevices(token).then(dev =>
+            // {
+            //   var devicesArray = dev as Array<Project>;
 
-              var devicesUnConfiguredArray = devicesArray.filter(d => d.status == "NotConfigured");
+            //   var devicesConfiguredArray = devicesArray.filter(d => d.status == "Configured");
 
-              this.devicesUnconfiguredNb = devicesUnConfiguredArray.length;
-            })
+            //   this.devicesConfiguredNb = devicesConfiguredArray.length;
+
+            //   var devicesUnConfiguredArray = devicesArray.filter(d => d.status == "NotConfigured");
+
+            //   this.devicesUnconfiguredNb = devicesUnConfiguredArray.length;
+            // })
         }
       );
     }catch(ex){
