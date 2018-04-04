@@ -17,9 +17,7 @@ export class OverviewComponent implements OnInit {
   projectsNb : number;
   devicesConfiguredNb : number;
   devicesUnconfiguredNb : number;
-  // swedenProjectsNb:number;
-  // denmarkProjectsNb:number;
-  // franceProjectsNb:number;
+
   projectsArray : Array<{country:string, projects:Array<Project>}>;
 
   constructor( private apiCallModule: ApiCallsService) { }
@@ -45,25 +43,16 @@ export class OverviewComponent implements OnInit {
 
             for (var i in countryList){
 
-              this.apiCallModule.getProjectsNbByCountry(token, countryList[i]).then(projs  =>
+              this.apiCallModule.getProjectsNbByCountry(token, countryList[i]).then(projs =>
                 {  
                   var projsArray = projs as Array<Project>;
 
-                  this.projectsArray.push({country:countryList[i], projects:projsArray})
+                  if (projs[0] != null){
+                    this.projectsArray.push({country:projs[0].country, projects:projsArray})
+                  }
+                  
                 })
             }           
-
-            // this.apiCallModule.getProjectsNbByCountry(token, "Denmark").then(projects =>
-            // {  
-            //   var projectsArray = projects as Array<Project>;
-            //   this.denmarkProjectsNb = projectsArray.length;
-            // })
-
-            // this.apiCallModule.getProjectsNbByCountry(token, "France").then(projects =>
-            // {  
-            //   var projectsArray = projects as Array<Project>;
-            //   this.franceProjectsNb = projectsArray.length;
-            // })
 
             // this.apiCallModule.getProjects(token).then(proj =>
             // {

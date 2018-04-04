@@ -117,6 +117,7 @@ export class ApiCallsService {
               throw(e);
             });
           });
+          
           return promise;
       }
 
