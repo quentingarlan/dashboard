@@ -80,7 +80,7 @@ export class ApiCallsService {
     };
 
     var promise = new Promise((resolve, reject) => {
-      this.http.get<string>(this.serverRestApiUrl + this.projNbByCountryUrl+ "/" + countryId, headers)
+      this.http.get<Array<Project>>(this.serverRestApiUrl + this.projNbByCountryUrl+ "/" + countryId, headers)
         .toPromise()
         .then(
           res=>{

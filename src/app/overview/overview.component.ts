@@ -17,9 +17,10 @@ export class OverviewComponent implements OnInit {
   projectsNb : number;
   devicesConfiguredNb : number;
   devicesUnconfiguredNb : number;
-  SwedenProjectsNb:string;
-  DenmarkProjectsNb:string;
-  FranceProjectsNb:string;
+  swedenProjectsNb:number;
+  denmarkProjectsNb:number;
+  franceProjectsNb:number;
+  projCountry:string;
 
   constructor( private apiCallModule: ApiCallsService) { }
 
@@ -34,28 +35,34 @@ export class OverviewComponent implements OnInit {
         {
             var token = val as Token;
 
-            // this.apiCallModule.getUsers(token).then(users =>
-            // {
-            //    var usersArray = users as Array<Project>;
-            //    this.usersNb = usersArray.length;
-            // })
+            this.apiCallModule.getUsers(token).then(users =>
+            {
+               var usersArray = users as Array<Project>;
+               this.usersNb = usersArray.length;
+            })
+
+          this.apiCallModule.getProjectsById(token,"58b3fb74-8512-4677-925a-cf83f3137dcb").then(projNb =>
+            {  
+              var projectNb = projNb as Project;
+              this.projCountry = projectNb.country;
+            })
 
             this.apiCallModule.getProjectsNbByCountry(token, "Sweden").then(projNb =>
             {  
-              var projectNb = projNb as string;
-              this.SwedenProjectsNb = projectNb;
+              var projectNb = projNb as Array<Project>;
+              this.swedenProjectsNb = projectNb.length;
             })
 
             this.apiCallModule.getProjectsNbByCountry(token, "Denmark").then(projNb =>
               {  
-                var projectNb = projNb as string;
-                this.DenmarkProjectsNb = projectNb;
+                var projectNb = projNb as Array<Project>;
+                this.denmarkProjectsNb = projectNb.length;
               })
 
               this.apiCallModule.getProjectsNbByCountry(token, "France").then(projNb =>
                 {  
-                  var projectNb = projNb as string;
-                  this.FranceProjectsNb = projectNb;
+                  var projectNb = projNb as Array<Project>;
+                  this.franceProjectsNb = projectNb.length;
                 })
 
             this.apiCallModule.getProjects(token).then(proj =>
