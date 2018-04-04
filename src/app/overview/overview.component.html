@@ -20,11 +20,13 @@
 
 </Table>
 
-   <ul>
-      <li *ngFor="let proj of projectsArray">
-         {{proj.country}}
-         {{proj.projects.length}}
-      </li>
-  </ul>   
+  <table>
+      <tr *ngFor="let proj of projectsArray">
+          <td> {{proj.country}}</td>
+          <td> {{proj.projects.length}}</td>
+          <!-- <td> {{proj.configured}}</td>
+          <td> {{proj.notConfigured}}</td> -->
+      </tr>
+  </table>
 
 </div>
