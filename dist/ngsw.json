@@ -1,0 +1,39 @@
+{
+  "configVersion": 1,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "/index.html",
+        "/manifest.json",
+        "/inline.318b50c57b4eba3d437b.bundle.js",
+        "/main.576453c92022819130cd.bundle.js",
+        "/polyfills.6632764bf1554842312c.bundle.js",
+        "/styles.2d22bd287273135943cc.bundle.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "/assets/multi-touch-iPhone.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/inline.318b50c57b4eba3d437b.bundle.js": "998c6060446975e566fd17509558ddc68d72eec3",
+    "/assets/multi-touch-iPhone.png": "81126542ff4a143de8d28424c10a30cb479b9e37",
+    "/main.576453c92022819130cd.bundle.js": "168cb03bd6e17bc772b4aeed8837e363bef72da0",
+    "/polyfills.6632764bf1554842312c.bundle.js": "86bfd4ce846c8d1a2339c814a0787103bab40309",
+    "/styles.2d22bd287273135943cc.bundle.css": "77f1ec50dcffb5eb90ed302556ee51775252ddfb",
+    "/index.html": "6123a53ba76074af4c591e09d774b0f280c8f7a9",
+    "/manifest.json": "3d6a2f0d14932a8aa1555122b37a93eea213beae"
+  }
+}
