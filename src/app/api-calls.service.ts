@@ -11,10 +11,10 @@ import { catchError } from 'rxjs/operators';
 
 import { HttpErrorHandler, HandleError } from './http-error-handler.service';
 
-import { Token } from './token';
-import { Device } from './device';
-import { Project } from './project';
-import { User } from './user';
+import { Token } from './interfaces/token';
+import { Device } from './interfaces/device';
+import { Project } from './interfaces/project';
+import { User } from './interfaces/user';
 import { Logger, I18nService } from '@app/core';
 import { AppComponent } from './app.component';
 

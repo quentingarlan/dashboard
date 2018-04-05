@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Token } from '../token';
-import { Device } from '../device';
-import { Project } from '../project';
-import { User } from '../user';
+import { Token } from '../interfaces/token';
+import { Device } from '../interfaces/device';
+import { Project } from '../interfaces/project';
+import { User } from '../interfaces/user';
 import { ApiCallsService } from '../api-calls.service'
 
 @Component({
@@ -63,8 +63,6 @@ export class OverviewComponent implements OnInit {
                     var devicesArray = projsArray[j].devices as Array<Device>;
 
                     for (var k in devicesArray){
-                      console.log("devicesarr loop");
-                      console.log("devicesarr status" + devicesArray[k].status);
                       if(devicesArray[k].status== "Configured"){
                         tempTotalConf++;
                       }

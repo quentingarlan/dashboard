@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Token } from '../token';
-import { Device } from '../device';
-import { Project } from '../project';
+import { Token } from '../interfaces/token';
+import { Device } from '../interfaces/device';
+import { Project } from '../interfaces/project';
 import { ApiCallsService } from '../api-calls.service'
 
 @Component({
@@ -25,7 +25,7 @@ export class CountryViewComponent implements OnInit {
             var token = val as Token;
             this.apiCallModule.getProjectsByCountry(token, "Sweden").then(projs =>
             {  
-              var projArray = projs as  Array<Project>;
+              var projArray = projs as Array<Project>;
 
               for(var p in projArray){
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-export class Token{
+export interface Token{
   access_token:string;
   accessTokenExpiresAt:string;
   redirect_uri:string;
