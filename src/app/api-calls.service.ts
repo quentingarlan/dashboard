@@ -17,6 +17,7 @@ import { Project } from './interfaces/project';
 import { User } from './interfaces/user';
 import { Logger, I18nService } from '@app/core';
 import { AppComponent } from './app.component';
+import {devEnvVars} from './interfaces/environment'
 
 const log = new Logger('App');
 
@@ -25,7 +26,7 @@ export class ApiCallsService {
 
   constructor(private http: HttpClient ) {}
 
-  serverRestApiUrl = 'http://localhost:8080'
+  serverRestApiUrl = devEnvVars.serverUrl;
   projectsUrl = '/api/project';  
   devicesUrl = '/api/device';  
   devicesTopUrl = '/api/devicetop';  

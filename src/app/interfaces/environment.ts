@@ -1,4 +1,4 @@
-export const environmentVars ={
+export const countryVars ={
     countryList : ["Sweden", "Denmark", "France", "Belgium", "Russia", "Italy", "Germany",
     "Norway", "Chile", "Turkey", "Poland", "Finland", "Austria", "Spain"],
     //generated with http://darkart.com/cgi-bin/colors.cgi
@@ -34,4 +34,8 @@ export const environmentVars ={
         'rgba(205,135,42 , 1)',
         'rgba(159,8,255, 1)',
     ]
+} 
+
+export const devEnvVars ={
+    serverUrl :'http://localhost:8080'
 } 

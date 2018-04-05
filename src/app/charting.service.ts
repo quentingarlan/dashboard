@@ -3,7 +3,7 @@ import { Chart } from 'Chart.js'
 import { Project } from './interfaces/project';
 import { Device } from './interfaces/device';
 import { TagContentType } from '@angular/compiler';
-import { environmentVars } from './interfaces/environment';
+import { countryVars } from './interfaces/environment';
 
 @Injectable()
 export class ChartingService {
@@ -13,19 +13,19 @@ export class ChartingService {
   CreateNbProjectsChart(projects: Array<Project>)
   {
     var nbProjectArray  = new Array<number>(); 
-    for (var i in environmentVars.countryList){
-      nbProjectArray.push(projects.filter(p=>p.country == environmentVars.countryList[i]).length);
+    for (var i in countryVars.countryList){
+      nbProjectArray.push(projects.filter(p=>p.country == countryVars.countryList[i]).length);
     }
 
         var chart = new Chart('projectsCanvas', {
           type:'pie',
           data:{
-              labels :  environmentVars.countryList,
+              labels :  countryVars.countryList,
               datasets:
               [{
                   data:nbProjectArray,
-                  backgroundColor:environmentVars.countryListColors,
-                  borderColor: environmentVars.countryListBorderColors,
+                  backgroundColor:countryVars.countryListColors,
+                  borderColor: countryVars.countryListBorderColors,
                 borderWidth: 1
                 }]
               },
