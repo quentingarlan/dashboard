@@ -16,6 +16,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { OverviewComponent } from './overview/overview.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CountryViewComponent } from './country-view/country-view.component';
 
 @NgModule({
   imports: [
@@ -32,7 +33,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     LoginModule,
     AppRoutingModule
   ],
-  declarations: [AppComponent, OverviewComponent, DashboardComponent],
+  declarations: [AppComponent, OverviewComponent, DashboardComponent, CountryViewComponent],
   providers: [
   ],
   bootstrap: [AppComponent]

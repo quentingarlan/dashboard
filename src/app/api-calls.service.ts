@@ -28,14 +28,14 @@ export class ApiCallsService {
   }
 
   serverRestApiUrl = 'http://localhost:8080'
-  projectsUrl = '/api/project';  // URL to web api
-  devicesUrl = '/api/device';  // URL to web api
-  devicesTopUrl = '/api/devicetop';  // URL to web api
-  usersUrl = '/api/user';  // URL to web api
-  authUrl = '/oauth/token';  // URL to web api
-  projNbByCountryUrl = '/api/project/number';  // URL to web api
+  projectsUrl = '/api/project';  
+  devicesUrl = '/api/device';  
+  devicesTopUrl = '/api/devicetop';  
+  devicesByCountryUrl = '/api/device/country';
+  usersUrl = '/api/user';  
+  authUrl = '/oauth/token';  
+  projByCountryUrl = '/api/project/number';  
   projExistsUrl = '/api/project/exist';
-  projByCountryUrl = '/api/project/country';  // URL to web api
   private handleError: HandleError;
   
   //#region 
@@ -67,7 +67,7 @@ export class ApiCallsService {
    }
 
 
-  getProjectsNbByCountry (accessToken : Token,
+  getProjectsByCountry (accessToken : Token,
                           countryId:string)
   {
     console.log('get projs');
@@ -80,7 +80,7 @@ export class ApiCallsService {
     };
 
     var promise = new Promise((resolve, reject) => {
-      this.http.get<Array<Project>>(this.serverRestApiUrl + this.projNbByCountryUrl+ "/" + countryId, headers)
+      this.http.get<Array<Project>>(this.serverRestApiUrl + this.projByCountryUrl+ "/" + countryId, headers)
         .toPromise()
         .then(
           res=>{
@@ -229,6 +229,34 @@ export class ApiCallsService {
       });
       return promise;    
   }
+
+/** GET devices from the server */
+getDevicesByCountry (accessToken : Token,
+                     countryId : string) {
+  console.log('get Devices by country');
+
+  var headers = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Bearer ' + accessToken.access_token
+    })
+  };
+
+  var promise = new Promise((resolve, reject) => {
+    this.http.get<Array<Device>>(this.serverRestApiUrl + this.devicesByCountryUrl+ "/" + countryId, headers)
+      .toPromise()
+      .then(
+        res=>{
+          resolve(res);
+        }
+      ).catch(function(e){
+        console.log("error while getting devices");
+        throw(e);
+      });
+    });
+    return promise;    
+  }
+  
 
   /** POST Auth from the server */
   postAuth () {

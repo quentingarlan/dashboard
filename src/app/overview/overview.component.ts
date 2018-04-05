@@ -23,7 +23,7 @@ export class OverviewComponent implements OnInit {
                          configured:number,
                          notConfigured:number}>;
 
-  constructor( private apiCallModule: ApiCallsService) { }
+  constructor( private apiCallModule: ApiCallsService ) { }
 
   ngOnInit() {
 
@@ -32,10 +32,12 @@ export class OverviewComponent implements OnInit {
     try
     {
       this.apiCallModule.postAuth().then(
-        val => 
+        val =>
         {
             var token = val as Token;
             this.projectsNb = 0;
+            this.devicesConfiguredNb = 0;
+            this.devicesUnconfiguredNb = 0;
 
             this.apiCallModule.getUsers(token).then(users =>
             {
@@ -47,45 +49,40 @@ export class OverviewComponent implements OnInit {
 
             for (var i in countryList){
 
-              this.apiCallModule.getProjectsNbByCountry(token, countryList[i]).then(projs =>
-              {  
+              this.apiCallModule.getProjectsByCountry(token, countryList[i]).then(projs =>
+              {
                 var projsArray = projs as Array<Project>;
 
                 if (projs[0] != null){
 
-                  var totalConf = 0;
-                  var totalNotConf = 0;
+                  var tempTotalConf = 0;
+                  var tempTotalNotConf = 0;
 
-                  for (var i in projsArray){
+                  for (var j in projsArray){
 
-                    var devicesArray = projsArray[i].devices as Array<Device>;
-                    //console.log("fafa" + devicesArray);
+                    var devicesArray = projsArray[j].devices as Array<Device>;
 
-                    totalConf += devicesArray.filter(d=>d.status == "Configured").length;
-                    totalNotConf +=  devicesArray.filter(d=>d.status == "NotConfigured").length;
+                    for (var k in devicesArray){
+                      console.log("devicesarr loop");
+                      console.log("devicesarr status" + devicesArray[k].status);
+                      if(devicesArray[k].status== "Configured"){
+                        tempTotalConf++;
+                      }
+                      else{
+                        tempTotalNotConf++;
+                      }
+                    }
                   }
-                 // console.log("totalConf" + totalConf);
 
                   this.projectsNb+=projsArray.length;
-                  this.projectsArray.push({country:projs[0].country, projects:projsArray, configured:totalConf, notConfigured:totalNotConf});
+                  this.projectsArray.push({country:projs[0].country, projects:projsArray, configured:tempTotalConf, notConfigured:tempTotalNotConf});
+
+                  this.devicesConfiguredNb += tempTotalConf;
+                  this.devicesUnconfiguredNb += tempTotalNotConf;
                 }
-                
+
               })
-            }           
-
-            this.apiCallModule.getDevices(token).then(dev =>
-            {
-              var devicesArray = dev as Array<Device>;
-
-              var devicesConfiguredArray = devicesArray.filter(d => d.status == "Configured");
-              //console.log("fifi" + devicesArray.filter(d => d.status == "Configured"));
-
-              this.devicesConfiguredNb = devicesConfiguredArray.length;
-
-              var devicesUnConfiguredArray = devicesArray.filter(d => d.status == "NotConfigured");
-
-              this.devicesUnconfiguredNb = devicesUnConfiguredArray.length;
-            })
+            }
         }
       );
     }catch(ex){

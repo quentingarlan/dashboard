@@ -1,7 +1,7 @@
 <div>
   <H3>overview</H3>
 
-  <Table>
+  <Table  cellpadding="5">
     <tr>
       <Td>Users</Td>
       <td>Projects</td>
@@ -20,12 +20,12 @@
 
 </Table>
 
-  <table>
+  <table cellpadding="10">
       <tr *ngFor="let proj of projectsArray">
           <td> {{proj.country}}</td>
           <td> {{proj.projects.length}}</td>
-          <!-- <td> {{proj.configured}}</td>
-          <td> {{proj.notConfigured}}</td> -->
+          <td> {{proj.configured}}</td>
+          <td> {{proj.notConfigured}}</td>
       </tr>
   </table>
 

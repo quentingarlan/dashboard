@@ -1,0 +1,10 @@
+
+<table cellpadding="10">
+  <tr>
+    <td>Reference</td> <td>Catalog name</td> <td>nb configured</td> <td>nb not configured</td>
+  </tr>
+    <tr *ngFor="let dev of devicesArray">
+        <td> {{dev.reference}}</td>
+        <td> {{dev.manufacturer}}</td>
+    </tr>
+</table>

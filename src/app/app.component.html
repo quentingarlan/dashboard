@@ -12,25 +12,28 @@
           </ng-template>
         </ngb-tab>
 
-        <ngb-tab title="Dashboard">
+        <ngb-tab title="Dashboard" activeId="dashTab">
         <ng-template ngbTabContent>
              <app-dashboard></app-dashboard>
         </ng-template>
         </ngb-tab>
 
-        <ngb-tab title="Sweden" [disabled]="true">
+        <ngb-tab title="Sweden" activeId="SwedenTab">
           <ng-template ngbTabContent>
+            <app-country-view></app-country-view>
           </ng-template>
         </ngb-tab>
 
          <ngb-tab title="Denmark" [disabled]="true">
           <ng-template ngbTabContent>
+              <app-country-view></app-country-view>
           </ng-template>
         </ngb-tab>
 
         <ngb-tab title="France" [disabled]="true">
-                <ng-template ngbTabContent>
-                </ng-template>
+            <ng-template ngbTabContent>
+                <app-country-view></app-country-view>
+            </ng-template>
         </ngb-tab>
 
 </ngb-tabset>
