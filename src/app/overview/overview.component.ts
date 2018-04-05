@@ -4,6 +4,7 @@ import { Device } from '../interfaces/device';
 import { Project } from '../interfaces/project';
 import { User } from '../interfaces/user';
 import { ApiCallsService } from '../api-calls.service'
+import { environmentVars } from '../interfaces/environment';
 
 @Component({
   selector: 'app-overview',
@@ -27,7 +28,6 @@ export class OverviewComponent implements OnInit {
 
   ngOnInit() {
 
-    var countryList =["Sweden", "Denmark", "France", "Belgium", "Russia", "Italy", "Germany", "Norway", "Chile", "Turkey", "Poland", "Finland", "Austria", "Spain"];
 
     try
     {
@@ -47,9 +47,9 @@ export class OverviewComponent implements OnInit {
 
             this.projectsArray = new Array<{country:string, projects:Array<Project>, configured:number, notConfigured:number}>();
 
-            for (var i in countryList){
+            for (var i in environmentVars.countryList){
 
-              this.apiCallModule.getProjectsByCountry(token, countryList[i]).then(projs =>
+              this.apiCallModule.getProjectsByCountry(token, environmentVars.countryList[i]).then(projs =>
               {
                 var projsArray = projs as Array<Project>;
 

@@ -23,9 +23,7 @@ const log = new Logger('App');
 @Injectable()
 export class ApiCallsService {
 
-  constructor(
-    private http: HttpClient ) {
-  }
+  constructor(private http: HttpClient ) {}
 
   serverRestApiUrl = 'http://localhost:8080'
   projectsUrl = '/api/project';  
