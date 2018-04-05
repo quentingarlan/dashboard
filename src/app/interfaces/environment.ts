@@ -37,5 +37,5 @@ export const countryVars ={
 } 
 
 export const devEnvVars ={
-    serverUrl :'http://localhost:8080'
+    serverUrl :'https://omega-tracking-test.azurewebsites.net/'
 } 
