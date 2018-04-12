@@ -23,6 +23,9 @@
       "@env/*": ["environments/*"]
     }
   },
+  "types": [
+    "underscore"
+  ],
   "angularCompilerOptions": {
     "preserveWhitespaces": false
   }
