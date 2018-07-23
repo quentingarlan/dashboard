@@ -17,6 +17,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { OverviewComponent } from './overview/overview.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CountryViewComponent } from './country-view/country-view.component';
+import { MatTabsModule, MatButtonModule, MatCheckboxModule } from '@angular/material';
+import { ProjectUpdatesComponent } from './project-updates/project-updates.component';
+import { UserEvolutionComponent } from './user-evolution/user-evolution.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -31,10 +35,12 @@ import { CountryViewComponent } from './country-view/country-view.component';
     HomeModule,
     AboutModule,
     LoginModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatTabsModule,
   ],
-  declarations: [AppComponent, OverviewComponent, DashboardComponent, CountryViewComponent],
-  providers: [
+  declarations: [AppComponent, OverviewComponent, DashboardComponent, CountryViewComponent, ProjectUpdatesComponent, UserEvolutionComponent],
+  providers: [SharedModule
   ],
   bootstrap: [AppComponent]
 })

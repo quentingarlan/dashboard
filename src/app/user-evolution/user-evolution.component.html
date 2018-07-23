@@ -1,0 +1,40 @@
+<div>
+  <Table width="100%">
+    <tr width="100%">
+        <td width="50%" align="center">User created (accumulated)</td>
+        <td width="50%" align="center">User last usage of eConfigure</td>
+    </tr>
+    <tr width="100%">
+      <td width="50%"><canvas id="usersCreated">{{ nbUsersCreatedChart }} </canvas></td>
+      <td width="50%"><canvas id="usersCanvas">{{ nbUserChart }} </canvas></td>
+    </tr>
+  </Table>
+    <Table  width="100%">
+      <tr width="100%">
+          <td width="50%" align="center">Installed eConfigure versions</td>
+          <td width="50%" align="center">Installed eConfigure type</td>
+      </tr>
+      <tr width="100%">
+          <td width="50%"><canvas id="statsVersions">{{ statsVersionsChart }} </canvas></td>
+          <td width="50%"><canvas id="expertVersions">{{ expertVersionsChart }} </canvas></td>
+        </tr>
+     </Table>
+  <!-- <Table cellpadding="10">
+      <tr><td>Latest user created</td></tr>
+      <tr>
+          <td>Time create</td> 
+          <td>Time update</td> 
+          <td>Country</td> 
+          <td>Software</td> 
+          <td>Version</td>
+      </tr>
+      <tr>
+          <td>{{ lastUser?.createdAt }}</td>
+          <td>{{ lastUser?.updatedAt }}</td>
+          <td>{{ lastUser?.country }}</td>
+          <td>{{ lastUser?.software }}</td>
+          <td>{{ lastUser?.version }}</td>
+      </tr>
+  </Table> -->
+</div>
+  

@@ -1,0 +1,24 @@
+#countries {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#countries td, #countries th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#countries tr:nth-child(even){background-color: #f8f6f6;}
+
+#countries tbody tr:hover {
+    background-color: rgb(214, 238, 238);
+}  
+
+#countries th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #32AD3C;
+    color: white;
+}

@@ -4,7 +4,6 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
 import { HomeComponent } from './home.component';
-import { QuoteService } from './quote.service';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -17,8 +16,7 @@ describe('HomeComponent', () => {
           SharedModule,
           HttpClientTestingModule
         ],
-        declarations: [HomeComponent],
-        providers: [QuoteService]
+        declarations: [HomeComponent]
       })
       .compileComponents();
   }));

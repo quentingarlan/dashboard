@@ -1,10 +1,40 @@
-
-<table cellpadding="10">
-  <tr>
-    <td>Reference</td> <td>Catalog name</td> <td>nb configured</td> <td>nb not configured</td>
-  </tr>
-    <tr *ngFor="let dev of devicesArray">
-        <td> {{dev.reference}}</td>
-        <td> {{dev.manufacturer}}</td>
+<div>
+  <H2>{{ countrySelected }}</H2>
+  <Table >
+    <tr><td valign="top">
+      <table id="countries" cellpadding="5" [hidden]= "showProjects">
+        <tr>
+          <th>Device reference</th>
+          <th>Catalog Name</th>
+          <th>Programmed</th>
+          <th>Not programmed</th>
+        </tr>
+        <tr *ngFor="let display of devDisplay">
+            <Td>{{ display.reference }}</Td>
+            <Td>{{ display.catalogName }}</Td>
+            <td>{{ display.nbConf }}</td>
+            <td>{{ display.nbNotConf }}</td>
+          </tr>
+      </table></td>
+  
+    <td valign="top" margin="0,0,0,20" [hidden]= "!showProjects">
+        <table id="countries" cellpadding="5">
+        <tr>
+            <th>Project Name</th>
+            <th>Programmed</th>
+            <th>Not programmed</th>
+            <th>Updated</th>
+          </tr>
+        <tr *ngFor="let proj of projWithDevicesArray">
+            <Td>{{ proj.projectName }}</Td>
+            <Td>{{ proj.nbConf }}</Td>
+            <Td>{{ proj.nbNotConf }}</Td>
+            <Td>{{ proj.updatedTime }}</Td>
+          </tr>
+      </table></td>
+     <Td valign="top" style="padding-left:10px"><input type="checkbox" name="showHidePojects" [(ngModel)]="showProjects"/>Show Projects</Td>
     </tr>
-</table>
+  </Table>
+  
+
+</div>

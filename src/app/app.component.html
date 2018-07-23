@@ -1,41 +1,60 @@
 <script src="node_modules/chart.js/Chart.min.js"></script>
 <script src="node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
 
-<router-outlet></router-outlet>
 
-<ngb-tabset>
-     
-        <ngb-tab>
-          <ng-template ngbTabTitle>Overview</ng-template>
-          <ng-template ngbTabContent>
-                <app-overview></app-overview>
-          </ng-template>
-        </ngb-tab>
+<div class="container-fluid" >
+        <router-outlet></router-outlet>
+        <mat-tab-group *ngIf="isLoggedIn">
+                 <mat-tab  label="Overview">
+                    <app-overview></app-overview>
+                </mat-tab> 
+                <mat-tab  label="Dashboard">
+                    <app-dashboard></app-dashboard>
+                </mat-tab>  
+                 <mat-tab  label="Projects">
+                    <app-project-updates></app-project-updates>
+                </mat-tab>
+                <mat-tab  label="Users">
+                    <app-user-evolution></app-user-evolution>
+                </mat-tab>
+                <mat-tab *ngFor="let country of countryList" label={{country}}>          
+                    <app-country-view [countrySelected]="country"></app-country-view>
+                </mat-tab> 
+        </mat-tab-group> 
+</div>
 
-        <ngb-tab title="Dashboard" activeId="dashTab">
-        <ng-template ngbTabContent>
-             <app-dashboard></app-dashboard>
-        </ng-template>
-        </ngb-tab>
+     <!-- <nav mat-tab-nav-bar>
+        <a mat-tab-link
+            [routerLink]="['dashboard']"
+            routerLinkActive #rla1="routerLinkActive"
+            [active]="rla1.isActive">
+            Dashboard
+        </a>
+        <a mat-tab-link
+            [routerLink]="['overview']"
+            routerLinkActive #rla2="routerLinkActive"
+            [active]="rla2.isActive">
+            Overview
+        </a>
+         <a mat-tab-link
+            [routerLink]="['projects']"
+            routerLinkActive #rla3="routerLinkActive"
+            [active]="rla3.isActive">
+            Projects
+        </a> 
+        <a mat-tab-link
+            [routerLink]="['users']"
+            routerLinkActive #rla4="routerLinkActive"
+            [active]="rla4.isActive">
+            Users
+        </a> 
+        <a mat-tab-link
+            *ngFor="let country of countryList"
+            [routerLink]="country"
+            routerLinkActive #rla5="routerLinkActive"
+            [active]="rla5.isActive">
+            {{country}}
+        </a> 
+    </nav>   -->
 
-        <ngb-tab title="Sweden" activeId="SwedenTab">
-          <ng-template ngbTabContent>
-            <app-country-view></app-country-view>
-          </ng-template>
-        </ngb-tab>
-
-         <ngb-tab title="Denmark" [disabled]="true">
-          <ng-template ngbTabContent>
-              <app-country-view></app-country-view>
-          </ng-template>
-        </ngb-tab>
-
-        <ngb-tab title="France" [disabled]="true">
-            <ng-template ngbTabContent>
-                <app-country-view></app-country-view>
-            </ng-template>
-        </ngb-tab>
-
-</ngb-tabset>
-      
 

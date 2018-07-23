@@ -1,0 +1,29 @@
+#overview {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#overview td, #overview th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#whiteTd td{
+    background-color: white;
+    border-collapse: collapse;
+}
+
+#overview tr:nth-child(even){background-color: #f8f8f8fb;}
+
+#overview tbody tr:hover {
+    background-color: #CCE7E7;
+}  
+
+#overview th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #32AD3C;
+    color: white;
+}

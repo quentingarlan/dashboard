@@ -16,8 +16,8 @@ import { Device } from './interfaces/device';
 import { Project } from './interfaces/project';
 import { User } from './interfaces/user';
 import { Logger, I18nService } from '@app/core';
-import { AppComponent } from './app.component';
-import {devEnvVars} from './interfaces/environment'
+
+import {devEnvVars} from './constants/environment'
 
 const log = new Logger('App');
 
@@ -28,6 +28,7 @@ export class ApiCallsService {
 
   serverRestApiUrl = devEnvVars.serverUrl;
   projectsUrl = '/api/project';  
+  projectsWithDevicesUrl = '/api/projectDevices'; 
   devicesUrl = '/api/device';  
   devicesTopUrl = '/api/devicetop';  
   devicesByCountryUrl = '/api/device/country';
@@ -41,7 +42,7 @@ export class ApiCallsService {
 
   getProjects (accessToken : Token)
   {
-    console.log('get projs');
+    // console.log('get projs');
   
     var headers = {
       headers: new HttpHeaders({
@@ -66,10 +67,37 @@ export class ApiCallsService {
    }
 
 
+   getProjectsWithDevices (accessToken : Token)
+   {
+     // console.log('get projs');
+   
+     var headers = {
+       headers: new HttpHeaders({
+         'Content-Type': 'application/x-www-form-urlencoded',
+         'Authorization': 'Bearer ' + accessToken.access_token
+       })
+     };
+ 
+     var promise = new Promise((resolve, reject) => {
+       this.http.get<Array<Project>>(this.serverRestApiUrl + this.projectsWithDevicesUrl, headers)
+         .toPromise()
+         .then(
+           res=>{
+             resolve(res);
+           }
+         ).catch(function(e){
+           console.log("error while getting projects");
+           throw(e);
+         });
+       });
+       return promise;
+    }
+ 
+
   getProjectsByCountry (accessToken : Token,
                           countryId:string)
   {
-    console.log('get projs');
+    // console.log('get projs');
   
     var headers = {
       headers: new HttpHeaders({
@@ -95,7 +123,7 @@ export class ApiCallsService {
 
     getProjectsById (accessToken : Token,
     projectId : string) {
-      console.log('get projs');
+      // console.log('get projs');
       
         var headers = {
           headers: new HttpHeaders({
@@ -122,7 +150,7 @@ export class ApiCallsService {
 
       getProjectExists (accessToken : Token,
         projectId : string) {
-          console.log('get projs');
+          // console.log('get projs');
           
             var headers = {
               headers: new HttpHeaders({
@@ -152,7 +180,7 @@ export class ApiCallsService {
 
   /** GET users from the server */
     getUsers (accessToken : Token) {
-      console.log('get Devices');
+      // console.log('get Users');
   
       var headers = {
         headers: new HttpHeaders({
@@ -180,7 +208,7 @@ export class ApiCallsService {
 
     /** GET devices from the server */
     getDevicesAsync (accessToken : Token): Observable<Array<Device>> {
-      console.log('get devices');
+      // console.log('get devices');
       var headers = {
         headers: new HttpHeaders({
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -192,7 +220,7 @@ export class ApiCallsService {
 
     /** GET devices from the server */
     getTopDevicesAsync (accessToken : Token): Observable<Array<Device>> {
-      console.log('get devices top');
+      // console.log('get devices top');
       var headers = {
         headers: new HttpHeaders({
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -205,7 +233,7 @@ export class ApiCallsService {
   
   /** GET devices from the server */
   getDevices (accessToken : Token) {
-    console.log('get Devices');
+    // console.log('get Devices');
 
     var headers = {
       headers: new HttpHeaders({
@@ -232,7 +260,7 @@ export class ApiCallsService {
 /** GET devices from the server */
 getDevicesByCountry (accessToken : Token,
                      countryId : string) {
-  console.log('get Devices by country');
+  // console.log('get Devices by country');
 
   var headers = {
     headers: new HttpHeaders({
@@ -243,6 +271,33 @@ getDevicesByCountry (accessToken : Token,
 
   var promise = new Promise((resolve, reject) => {
     this.http.get<Array<Device>>(this.serverRestApiUrl + this.devicesByCountryUrl+ "/" + countryId, headers)
+      .toPromise()
+      .then(
+        res=>{
+          resolve(res);
+        }
+      ).catch(function(e){
+        console.log("error while getting devices");
+        throw(e);
+      });
+    });
+    return promise;    
+  }
+
+  /** GET devices from the server */
+getDevicesByProject (accessToken : Token,
+                     projectId : string) {
+  // console.log('get Devices by country');
+
+  var headers = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Bearer ' + accessToken.access_token
+    })
+  };
+
+  var promise = new Promise((resolve, reject) => {
+    this.http.get<Array<Device>>(this.serverRestApiUrl + this.devicesUrl + "/" + projectId, headers)
       .toPromise()
       .then(
         res=>{
@@ -276,7 +331,7 @@ getDevicesByCountry (accessToken : Token,
         .toPromise()
         .then(
           res => { // Success
-            console.log("success auth promise");
+            // console.log("success auth promise");
             resolve(res);
           }
         )

@@ -18,6 +18,8 @@ import { catchError } from 'rxjs/operators';
 import { forEach } from '@angular/router/src/utils/collection';
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
+import { countryVars } from './constants/environment';
+import { AuthenticationService } from './core/authentication/authentication.service';
 
 const log = new Logger('App');
 
@@ -30,12 +32,15 @@ const log = new Logger('App');
 export class AppComponent implements OnInit {
 
   headers: {headers : HttpHeaders };
+  countryList=countryVars.countryList;
+  isLoggedIn : boolean;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private titleService: Title,
               private translateService: TranslateService,
-              private i18nService: I18nService,) 
+              private i18nService: I18nService,
+              private authenticationService: AuthenticationService) 
               { }
 
   ngOnInit() {
@@ -43,6 +48,10 @@ export class AppComponent implements OnInit {
     if (environment.production) {
       Logger.enableProductionMode();
     }
+
+    this.isLoggedIn = this.authenticationService.isAuthenticated();
+
+    console.log("this.isLoggedIn " + this.isLoggedIn);
 
     // Setup translations
     this.i18nService.init(environment.defaultLanguage, environment.supportedLanguages);
@@ -68,6 +77,11 @@ export class AppComponent implements OnInit {
           this.titleService.setTitle(this.translateService.instant(title));
         }
       });
+  }
+
+  onLogout(){
+    this.authenticationService.logout();  
+    this.isLoggedIn = false;
   }
 
 }

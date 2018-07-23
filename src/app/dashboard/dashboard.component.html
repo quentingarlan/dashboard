@@ -1,5 +1,53 @@
+<div margin="20">
+  <Table>
+        <tr width="100%">
+          <td width="50%" align="center">Project status by country</td>
+          <td width="50%" align="center">Average device by downloaded project</td>
+        </tr>
+        <tr>
+          <td width="50%"><canvas id="projectsDetailsCanvas">{{ projectsDetailsChart }} </canvas></td>
+          <td width="50%"><canvas id="averageConfDevicesCanvas">{{ averageConfDevicesChart }} </canvas></td>
+        </tr>
+  </Table>
+    <Table>
+      <tr width="100%">
+          <td width="50%" align="center">Number of projects by country</td>
+          <td width="50%" align="center">Most downloaded device</td>
+        </tr>
+      <tr width="100%">
+          <td width="50%"><canvas id="projectsCanvas">{{ projectsChart }} </canvas></td>
+          <td width="50%">
+              <Table>
+                <Tr>
+                  <td>
+                    <Table class="tableSwitch">
+                      <Tr><td class="tdSwitch"><label class="switchLab">Show name</label></td></Tr>
+                      <Tr><td class="tdSwitch"><label class="switch">
+                          <input type="checkbox"
+                          name="Reference"
+                          [(ngModel)]="refCheckBoxValue"
+                          (change)="onChange()">
+                          <span class="slider round"></span>
+                        </label></td></Tr>
+                      </Table>
+                  </td>
+                  <td>
+                      <canvas id="topConfDevicesCanvas">{{ topConfDevicesChart }} </canvas>
+                  </td>
+                </Tr>
+              </Table>
+          </td>
+      </tr>
+  </Table>
 
-  <H2>Project chart</H2>
-    <div>
-        <canvas id="projectsCanvas">{{ projectsChart }} </canvas>
-  </div>
+  <Table>
+      <tr width="100%">
+          <td width="50%" align="center">Number of configured devices</td>
+          <td width="50%" align="center">Number of projects</td>
+        </tr>
+      <tr width="100%">
+          <td width="50%"><canvas id="nbConfDevicesCanvas">{{ nbConfDevicesChart }} </canvas></td>
+          <td width="50%"><canvas id="nbprojectsCanvas">{{ nbProjectsChart }} </canvas></td>
+      </tr>
+  </Table>
+</div>

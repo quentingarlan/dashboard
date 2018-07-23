@@ -37,8 +37,15 @@ export class LoginComponent implements OnInit {
         this.isLoading = false;
       }))
       .subscribe(credentials => {
-        log.debug(`${credentials.username} successfully logged in`);
-        this.router.navigate(['/'], { replaceUrl: true });
+      
+        //This reloads page instead of just redirecting so it will actually display infos
+        if (credentials != null){
+          window.open('/', '_self');
+          log.debug(`${credentials.username} successfully logged in`);
+        }else{
+          this.error = "incorrect credentials";
+        }
+
       }, error => {
         log.debug(`Login error: ${error}`);
         this.error = error;

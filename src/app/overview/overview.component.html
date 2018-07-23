@@ -1,32 +1,51 @@
-<div>
-  <H3>overview</H3>
+<app-loader></app-loader>
 
-  <Table  cellpadding="5">
+  <Table cellpadding="5">
     <tr>
-      <Td>Users</Td>
-      <td>Projects</td>
-      <td>Configured devices</td>
-      <td>Not configured devices</td>
+      <td valign="top">
+        <Table cellpadding="5" id="overview">
+          <tr>
+            <Td id="whiteTd"></Td>
+             <Th>Projects</Th>
+             <Th>Devices programmed</Th>
+             <Th>Not programmed</Th>
+          </tr>
+          <tr>
+              <Td>Total</Td>
+              <td>{{ projectsNb }}</td>
+              <td>{{ devicesConfiguredNb }}</td>
+              <td>{{ devicesUnconfiguredNb }}</td>
+            </tr>
+
+            <tr>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+          </tr>
+          <tr *ngFor="let proj of projectsArray">
+              <td> {{proj.country}}</td>
+              <td> {{proj.projects.length}}</td>
+              <td> {{proj.configured}}</td>
+              <td> {{proj.notConfigured}}</td>
+          </tr> 
+        </Table>
+      </td>
+      <td valign="top">
+          <Table margin="20,0,0,0" cellpadding="5" id="overview">
+              <tr>
+                  <Th>Total users</Th>
+                  <!-- <td><H6>last week</H6></td> -->
+                   <Th>Users active last month</Th>
+                   <Th>Users active previously</Th>
+              </tr>
+              <tr>
+                  <td>{{usersNb}}</td>
+                  <!-- <td>{{userUpdatedLastWeek}}</td> -->
+                   <td>{{userUpdatedLastMonth}}</td>
+                   <td>{{userUpdatedBefore}}</td>
+              </tr>
+          </Table>
+      </td>
     </tr>
-    <tr>
-        <Td>{{ usersNb }}</Td>
-        <td>{{ projectsNb }}</td>
-        <td>{{ devicesConfiguredNb }}</td>
-        <td>{{ devicesUnconfiguredNb }}</td>
-      </tr>
-  </Table>
-
-<Table>
-
-</Table>
-
-  <table cellpadding="10">
-      <tr *ngFor="let proj of projectsArray">
-          <td> {{proj.country}}</td>
-          <td> {{proj.projects.length}}</td>
-          <td> {{proj.configured}}</td>
-          <td> {{proj.notConfigured}}</td>
-      </tr>
-  </table>
-
-</div>
+    </Table>

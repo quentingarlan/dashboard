@@ -41,10 +41,15 @@ export class AuthenticationService {
     // Replace by proper authentication call
     const data = {
       username: context.username,
-      token: '123456'
+      token: context.password
     };
-    this.setCredentials(data, context.remember);
-    return of(data);
+
+    if(data.username == 'omega' && data.token =='omega1234'){
+      this.setCredentials(data, context.remember);
+      return of(data);
+    }else{
+      return of(null);
+    }
   }
 
   /**
@@ -53,6 +58,7 @@ export class AuthenticationService {
    */
   logout(): Observable<boolean> {
     // Customize credentials invalidation here
+    window.open('home', '_self');
     this.setCredentials();
     return of(true);
   }
